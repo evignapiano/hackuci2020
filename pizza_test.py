@@ -1,11 +1,10 @@
 from flask import Flask, request, redirect
 from twilio.twiml.messaging_response import MessagingResponse
 import send_message
+import os
 
 
 app = Flask(__name__)
-account_sid = 'ACd5474723664cffd4cd919d5d9019facc'
-auth_token = '16433b3f464b5e2654fb25ed4226fe9c'
 
 dict_of_info = {"Emily": "+16197219618", "Tyler": "+18089310909", "Bryant": "+17145144501"}
 
@@ -49,9 +48,11 @@ def sms_reply(current_poll):
     return str(resp)
 
 if __name__ == "__main__":
-    new_poll = Pizza_Poll(3)
-    new_send = send_message.Send()
     app.run(debug=True)
+    new_poll = Pizza_Poll(3)
+    account_sid = os.environ.get('TWILIO_ACCOUNT_SID')
+    auth_token = os.environ.get('TWILIO_AUTH_TOKEN')
+    new_send = send_message.Send(account_sid, auth_token)
     while True:
         if new_poll.return_sent() == False:
             new_send.send_to_all(new_poll.return_stage())
