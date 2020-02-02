@@ -10,9 +10,9 @@ app = Flask(__name__)
 votes = 0
 total_responses = 0
 dict_of_info = {"+16197219618": ["Emily", ""], "+18089310909": ["Tyler", ""], "+17145144501": ["Bryant", ""]}
-list_of_nums = ["+18089310909"]  # "+16197219618", "+17145144501"] UNCOMMENT LATER
+list_of_nums = ["+18089310909", "+16197219618", "+17145144501"]
 stage = 1
-max = 1
+max = 3
 client = Client(api_keys.TWILIO_ACCOUNT_SID, api_keys.TWILIO_AUTH_TOKEN)
 
 def send_message(stage, num):
@@ -58,7 +58,7 @@ def check_majority_vote(votes, max):
 
 @app.route("/sms", methods=['GET', 'POST'])
 def sms_reply():
-    list_of_nums = ["+18089310909"]  # "+16197219618", "+17145144501"] UNCOMMENT LATER
+    list_of_nums = ["+18089310909", "+16197219618", "+17145144501"]
 
     global votes
     global sent
